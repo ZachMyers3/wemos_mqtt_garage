@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoOTA.h>
+#include "debug.h"
 
 void ota_setup() {
   ArduinoOTA.onStart([]() {
@@ -13,7 +14,7 @@ void ota_setup() {
       type = "filesystem";
 
     // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
-    DEBUG_LOG("Start updating %s\n", type);
+    DEBUG_LOG("Start updating %s\n", type.c_str());
   });
   ArduinoOTA.onEnd([]() {
     DEBUG_LOG("\nEnd");
