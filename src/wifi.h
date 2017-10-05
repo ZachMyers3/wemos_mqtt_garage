@@ -27,7 +27,7 @@ void wifi_setup() {
     Serial.print(".");
   }
   randomSeed(micros());
-  Serial.println("[WIFI] Successfully connected");
+  DEBUG_LOG("[WIFI] Successfully connected\n");
 }
 
 #endif
