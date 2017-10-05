@@ -13,24 +13,24 @@ void ota_setup() {
       type = "filesystem";
 
     // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
-    Serial.println("Start updating " + type);
+    DEBUG_LOG("Start updating %s\n", type);
   });
   ArduinoOTA.onEnd([]() {
-    Serial.println("\nEnd");
+    DEBUG_LOG("\nEnd");
   });
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+    DEBUG_LOG("Progress: %u%%\r", (progress / (total / 100)));
   });
   ArduinoOTA.onError([](ota_error_t error) {
-    Serial.printf("Error[%u]: ", error);
-    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
-    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
-    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
-    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
-    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+    DEBUG_LOG("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) DEBUG_LOG("Auth Failed\n");
+    else if (error == OTA_BEGIN_ERROR) DEBUG_LOG("Begin Failed\n");
+    else if (error == OTA_CONNECT_ERROR) DEBUG_LOG("Connect Failed\n");
+    else if (error == OTA_RECEIVE_ERROR) DEBUG_LOG("Receive Failed\n");
+    else if (error == OTA_END_ERROR) DEBUG_LOG("End Failed\n");
   });
   ArduinoOTA.begin();
-  Serial.println("[OTA]  Started");
+  DEBUG_LOG("[OTA]  Started\n");
 }
 
 #endif
