@@ -9,6 +9,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <PubSubClient.h>
+// in-house code moved to separate files for cleanliness
 #include "debug.h"
 #include "ota.h"
 #include "wifi.h"
