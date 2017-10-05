@@ -24,7 +24,7 @@ void wifi_setup() {
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    DEBUG_LOG(".");
   }
   randomSeed(micros());
   DEBUG_LOG("[WIFI] Successfully connected\n");
