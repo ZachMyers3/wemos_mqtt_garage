@@ -14,7 +14,7 @@ const char* MQTT_USERNAME = "ldltvixx";
 const char* MQTT_PASSWORD = "ttdOEBRDHhd1";
 
 void mqtt_connect() {
-  Serial.printf("[MQTT] Connecting to %s\n", MQTT_SERVER);
+  DEBUG_LOG("[MQTT] Connecting to %s\n", MQTT_SERVER);
   if (client.connect("ESP8266Client", MQTT_USERNAME, MQTT_PASSWORD)) {
     DEBUG_LOG("[MQTT] Connected\n");
   } else {
