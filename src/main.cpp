@@ -9,11 +9,14 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <PubSubClient.h>
+#include <RemoteDebug.h>
 // in-house code moved to separate files for cleanliness
 #include "debug.h"
 #include "ota.h"
 #include "wifi.h"
 #include "mqtt.h"
+
+const char* HOSTNAME = "ESP_Test";
 
 bool blink = false;
 bool blink_switch = true;
@@ -38,6 +41,9 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
 void setup() {
 #ifdef DEBUG
   Serial.begin(115200);
+  RSerial.begin(HOSTNAME);
+  RSerial.setSerialEnabled(true);
+  RSerial.handle();
 #endif
   DEBUG_LOG("[ESP]  Starting setup\n");
   wifi_setup();
@@ -54,6 +60,10 @@ void setup() {
 }
 
 void loop() {
+#ifdef DEBUG
+  RSerial.printf("PLS PLS PLS\n");
+  RSerial.handle();
+#endif
   // handle OTA updates in loop
   ArduinoOTA.handle();
   // remain connected to mqtt service

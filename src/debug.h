@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <Arduino.h>
+#include <RemoteDebug.h>
+
+RemoteDebug RSerial;
 
 // toggle switch for debugging
 #define DEBUG 1
@@ -16,7 +19,7 @@ void DEBUG_LOG(const char *format, ...)
     va_list arguments;
     va_start(arguments, format);
     vsnprintf(buff, sizeof(buff), format, arguments);
-    Serial.print(buff);
+    RSerial.print(buff);
     va_end(arguments);
 #endif
 }
