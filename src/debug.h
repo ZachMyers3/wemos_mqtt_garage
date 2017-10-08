@@ -22,6 +22,7 @@ void VERBOSE_LOG(const char *format, ...)
       RSerial.print(buff);
     }
     va_end(arguments);
+    RSerial.handle();
 #endif
 }
 
@@ -36,6 +37,7 @@ void DEBUG_LOG(const char *format, ...)
       RSerial.print(buff);
     }
     va_end(arguments);
+    RSerial.handle();
 #endif
 }
 
@@ -50,6 +52,7 @@ void INFO_LOG(const char *format, ...)
       RSerial.print(buff);
     }
     va_end(arguments);
+    RSerial.handle();
 #endif
 }
 
@@ -64,6 +67,7 @@ void WARNING_LOG(const char *format, ...)
       RSerial.print(buff);
     }
     va_end(arguments);
+    RSerial.handle();
 #endif
 }
 
@@ -78,6 +82,7 @@ void ERROR_LOG(const char *format, ...)
       RSerial.print(buff);
     }
     va_end(arguments);
+    RSerial.handle();
 #endif
 }
 

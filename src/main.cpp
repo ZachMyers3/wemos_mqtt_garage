@@ -93,7 +93,6 @@ void setup() {
   Serial.begin(115200);
   RSerial.begin(HOSTNAME);
   RSerial.setSerialEnabled(true);
-  RSerial.handle();
 #endif
   INFO_LOG("[ESP]  Starting setup\n");
   wifi_setup();
@@ -115,9 +114,6 @@ void setup() {
 }
 
 void loop() {
-#ifdef DEBUGGING
-  RSerial.handle();
-#endif
   ArduinoOTA.handle();
   if (!client.connected()) { mqtt_connect(); }
 
