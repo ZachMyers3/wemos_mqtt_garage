@@ -97,7 +97,7 @@ void garage_status_handler() {
 }
 
 void setup() {
-#ifdef DEBUG
+#ifdef DEBUGGING
   Serial.begin(115200);
   RSerial.begin(HOSTNAME);
   RSerial.setSerialEnabled(true);
@@ -105,18 +105,20 @@ void setup() {
 #endif
   DEBUG_LOG("[ESP]  Starting setup\n");
   wifi_setup();
+  DEBUG_LOG("[WIFI] IP: %s\n", WiFi.localIP().toString().c_str());
   ota_setup();
+
   client.setServer(MQTT_SERVER, MQTT_PORT);
   client.setCallback(mqtt_callback);
   while (!client.connected()) { mqtt_connect(); }
   client.subscribe(MQTT_GARAGE_TOPIC);
-  // initialize LED digital pin as an output
+
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(LED_BUILTIN, HIGH);
+  pinMode(LED_BUILTIN, LOW);
   pinMode(DOOR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(RELAY_PIN, LOW);
-  DEBUG_LOG("[WIFI] IP: %s\n", WiFi.localIP().toString().c_str());
+
   DEBUG_LOG("[ESP]  Setup finished\n");
 }
 
