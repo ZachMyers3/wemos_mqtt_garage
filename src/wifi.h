@@ -7,27 +7,31 @@
 #include "debug.h"
 
 // variables needed for ESPWifi
+const IPAddress STATIC_IP(192, 168, 1, 225);
+const IPAddress GATEWAY_IP(192, 168, 1, 1);
+const IPAddress SUBNET_IP(255, 255, 255, 0);
 const char* WIFI_SSID = "Pretty Fly For a Wi-Fi";
 const char* WIFI_PASS = "freckles";
 
 void wifi_setup() {
   delay(5000);
   // We start by connecting to a WiFi network
-  DEBUG_LOG("[WIFI] Connecting to %s\n", WIFI_SSID);
+  INFO_LOG("[WIFI] Connecting to %s\n", WIFI_SSID);
   // checks if already connected before WiFi.begin() to prevent loop
   WiFi.mode(WIFI_STA);
+  WiFi.config(STATIC_IP, GATEWAY_IP, SUBNET_IP);
   if (WiFi.status() == WL_CONNECTED) {
-    DEBUG_LOG("[WIFI] Already connected, exiting\n");
+    INFO_LOG("[WIFI] Already connected, exiting\n");
     return;
   }
   // attempts to connect to wifi
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    DEBUG_LOG(".");
+    INFO_LOG(".");
   }
   randomSeed(micros());
-  DEBUG_LOG("[WIFI] Successfully connected\n");
+  INFO_LOG("[WIFI] Successfully connected\n");
 }
 
 #endif

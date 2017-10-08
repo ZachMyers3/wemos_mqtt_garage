@@ -42,15 +42,7 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
   for (int i = 0; i < length; i++) {
     str_msg += (char)payload[i];
   }
-  DEBUG_LOG("[MQTT|%s] %s\n", str_topic.c_str(), str_msg.c_str());
-  if (str_topic == "esp/test") {
-    DEBUG_LOG("[MQTT] Valid topic located\n");
-    if (str_msg == "blink") {
-      DEBUG_LOG("[MQTT] Toggling blink switch\n");
-      blink_switch = !blink_switch;
-      client.publish("esp/test", "Blink switch toggled\n");
-    }
-  }
+  VERBOSE_LOG("[MQTT|%s] %s\n", str_topic.c_str(), str_msg.c_str());
 }
 
 /*
@@ -67,14 +59,14 @@ void garage_status() {
 
   if (last_state != door_state) {
     client.publish(MQTT_GARAGE_TOPIC, door_state.c_str());
-    DEBUG_LOG("[MQTT|%s] %s", MQTT_GARAGE_TOPIC, door_state.c_str());
+    VERBOSE_LOG("[MQTT|%s] %s", MQTT_GARAGE_TOPIC, door_state.c_str());
   }
 
   long now = millis();
   if (now - last_mqtt_msg > 60000) {
     last_mqtt_msg = now;
     client.publish(MQTT_GARAGE_TOPIC, door_state.c_str());
-    DEBUG_LOG("[MQTT|%s] %s", MQTT_GARAGE_TOPIC, door_state.c_str());
+    VERBOSE_LOG("[MQTT|%s] %s", MQTT_GARAGE_TOPIC, door_state.c_str());
   }
 }
 
@@ -88,7 +80,7 @@ void garage_status_handler() {
   if (str_msg != MQTT_GARAGE_TOGGLE) { return; }
 
   // valid message, toggle garage
-  DEBUG_LOG("[ESP]  Toggling garage controller relay\n");
+  INFO_LOG("[ESP]  Toggling garage controller relay\n");
   // pinMode(RELAY_PIN, HIGH);
   // delay(600);
   // pinMode(RELAY_PIN, LOW);
@@ -103,9 +95,9 @@ void setup() {
   RSerial.setSerialEnabled(true);
   RSerial.handle();
 #endif
-  DEBUG_LOG("[ESP]  Starting setup\n");
+  INFO_LOG("[ESP]  Starting setup\n");
   wifi_setup();
-  DEBUG_LOG("[WIFI] IP: %s\n", WiFi.localIP().toString().c_str());
+  INFO_LOG("[WIFI] IP: %s\n", WiFi.localIP().toString().c_str());
   ota_setup();
 
   client.setServer(MQTT_SERVER, MQTT_PORT);
@@ -119,12 +111,11 @@ void setup() {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(RELAY_PIN, LOW);
 
-  DEBUG_LOG("[ESP]  Setup finished\n");
+  INFO_LOG("[ESP]  Setup finished\n");
 }
 
 void loop() {
-#ifdef DEBUG
-  // RSerial.printf("PLS PLS PLS\n");
+#ifdef DEBUGGING
   RSerial.handle();
 #endif
   ArduinoOTA.handle();
