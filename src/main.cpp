@@ -99,11 +99,13 @@ void setup() {
   INFO_LOG("[WIFI] IP: %s\n", WiFi.localIP().toString().c_str());
   ota_setup();
 
+  // set up for mqtt client
   client.setServer(MQTT_SERVER, MQTT_PORT);
   client.setCallback(mqtt_callback);
   while (!client.connected()) { mqtt_connect(); }
   client.subscribe(MQTT_GARAGE_TOPIC);
 
+  // pin setup
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(LED_BUILTIN, LOW);
   pinMode(DOOR_PIN, INPUT);
