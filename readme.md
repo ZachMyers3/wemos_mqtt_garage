@@ -1,4 +1,6 @@
-WEMOS PROJECT TEMPLATE
+WEMOS GARAGE CONTROLLER
+
+A platformio project using the Wemos D1 Mini to control the garage in use with Home Assistant using MQTT messasges.
 
 to monitor device:
 pio device monitor --port /dev/ttyUSB0 --baud 115200
