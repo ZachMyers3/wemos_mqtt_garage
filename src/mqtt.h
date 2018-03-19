@@ -8,10 +8,10 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-const char* MQTT_SERVER = "m13.cloudmqtt.com";
-const int MQTT_PORT = 12882;
-const char* MQTT_USERNAME = "ldltvixx";
-const char* MQTT_PASSWORD = "ttdOEBRDHhd1";
+const char* MQTT_SERVER = "";
+const int MQTT_PORT = 0;
+const char* MQTT_USERNAME = "";
+const char* MQTT_PASSWORD = "";
 
 void mqtt_connect() {
   INFO_LOG("[MQTT] Connecting to %s\n", MQTT_SERVER);
