@@ -16,6 +16,7 @@ const char* MQTT_PASSWORD = "";
 void mqtt_connect() {
   espClient = new WifiClient();
   client.setClient(*espClient);
+  delay(5000);
   INFO_LOG("[MQTT] Connecting to %s\n", MQTT_SERVER);
   if (client.connect("ESP8266Client", MQTT_USERNAME, MQTT_PASSWORD)) {
     INFO_LOG("[MQTT] Connected\n");
